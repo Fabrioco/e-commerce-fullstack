@@ -3,6 +3,25 @@ import axios from "axios";
 import React from "react";
 import { useItemContext } from "../../../hooks/useItemContext";
 
+const cardStyle = {
+  style: {
+    base: {
+      color: "#32325d",
+      fontFamily: "Arial, sans-serif",
+      fontSmoothing: "antialiased",
+      fontSize: "16px",
+      "::placeholder": {
+        color: "#aab7c4",
+      },
+    },
+    invalid: {
+      color: "#fa755a",
+      iconColor: "#fa755a",
+    },
+  },
+  hidePostalCode: true,
+};
+
 export const FormCheckout = () => {
   const stripe = useStripe();
   const elements = useElements();
@@ -38,7 +57,7 @@ export const FormCheckout = () => {
 
       try {
         const { data } = await axios.post(
-          "http://localhost:4000/create-payment-intent", // Corrigido de https para http
+          "http://localhost:4000/create-payment-intent",
           {
             amount: value,
           }
@@ -73,7 +92,7 @@ export const FormCheckout = () => {
 
   return (
     <form onSubmit={handleSubmit}>
-      <CardElement />
+      <CardElement options={cardStyle} />
       <button type="submit">Pagar</button>
       {paymentError && <p>{paymentError}</p>}
       {paymentSuccess && <p>{paymentSuccess}</p>}
