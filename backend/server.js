@@ -12,9 +12,13 @@ app.use(express.json());
 app.post("/create-payment-intent", async (req, res) => {
   const { amount } = req.body;
 
+  if (!amount || amount <= 0) {
+    return res.status(400).send({ error: "Valor inválido para o pagamento" });
+  }
+
   try {
     const paymentIntent = await stripe.paymentIntents.create({
-      amount,
+      amount: amount, 
       currency: "brl",
     });
 
@@ -22,8 +26,9 @@ app.post("/create-payment-intent", async (req, res) => {
       clientSecret: paymentIntent.client_secret,
     });
   } catch (error) {
-    res.status(500).send(error);
+    console.error("Erro ao criar o payment intent:", error);
+    res.status(500).send({ error: "Erro no servidor ao criar o pagamento" });
   }
 });
 
-app.listen(4000, () => console.log("Servidor ta rodando na porta 4000"));
+app.listen(4000, () => console.log("Servidor rodando na porta 4000"));
