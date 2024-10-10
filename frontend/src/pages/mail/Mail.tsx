@@ -1,3 +1,4 @@
+import React from "react";
 import {
   FaShoppingBag,
   FaHeart,
@@ -8,6 +9,7 @@ import {
   FaInstagram,
   FaCartPlus,
 } from "react-icons/fa";
+import { FaFilterCircleXmark } from "react-icons/fa6";
 import mulher from "../../assets/images/mulher.png";
 import sapato from "../../assets/images/sapato.png";
 import bolsa from "../../assets/images/bolsa.png";
@@ -19,13 +21,67 @@ import profissional2 from "../../assets/images/profissional2.jpg";
 import profissional3 from "../../assets/images/profissional3.jpg";
 import profissional4 from "../../assets/images/profissional4.jpg";
 import profissional5 from "../../assets/images/profissional5.jpg";
-import bolsa2 from "../../assets/images/bolsa2.png";
-import vestido2 from "../../assets/images/vestido2.jpg";
 import vestido3 from "../../assets/images/vestido3.png";
 
 import styles from "./styles.module.css";
+import { products } from "../../data/products";
 
 export function Mail() {
+  const [productsList, setProductsList] = React.useState(products);
+
+  const buttonRef = React.useRef<HTMLButtonElement>(null);
+
+  const showOnlyOneProduct = (product: string) => {
+    switch (product) {
+      case "Sapatos":
+        setProductsList(
+          products.filter((item) => item.categoria === "Sapatos")
+        );
+        break;
+
+      case "Tenis":
+        setProductsList(products.filter((item) => item.categoria === "Tenis"));
+        break;
+
+      case "Bolsas":
+        setProductsList(products.filter((item) => item.categoria === "Bolsas"));
+        break;
+
+      case "Vestidos":
+        setProductsList(
+          products.filter((item) => item.categoria === "Vestidos")
+        );
+        break;
+
+      default:
+        break;
+    }
+  };
+
+  const showSubcategory = (subcategory: string) => {
+    switch (subcategory) {
+      case "new":
+        setProductsList(productsList.filter((item) => item.new === true));
+        break;
+
+      case "offer":
+        setProductsList(productsList.filter((item) => item.offer === true));
+        break;
+
+      case "popular":
+        setProductsList(productsList.filter((item) => item.popular === true));
+        break;
+
+      case "all":
+        setProductsList(products);
+        break;
+      default:
+        break;
+    }
+  };
+
+  console.log(buttonRef.current?.innerText);
+
   return (
     <div className={styles.container}>
       <header className={styles.header}>
@@ -74,11 +130,13 @@ export function Mail() {
             { img: sapato, label: "Sapatos" },
             { img: bolsa, label: "Bolsas" },
             { img: vestidos, label: "Vestidos" },
-            { img: tenis, label: "Tênis" },
+            { img: tenis, label: "Tenis" },
           ].map((item, index) => (
             <div className={styles.option} key={index}>
               <img src={item.img} alt={item.label} />
-              <button>{item.label}</button>
+              <button onClick={() => showOnlyOneProduct(item.label)}>
+                {item.label}
+              </button>
             </div>
           ))}
         </div>
@@ -87,41 +145,57 @@ export function Mail() {
       <div className={styles.products}>
         <span className={styles.title}>NOSSAS MELHORES COLEÇÕES</span>
         <nav className={styles.navProducts}>
-          <button className={styles.active}>Todos</button>
-          <button>Popular</button>
-          <button>Novos</button>
-          <button>Promoções</button>
+          {[
+            { subcategory: "all", label: "Todos" },
+            { subcategory: "new", label: "Novos" },
+            { subcategory: "popular", label: "Populares" },
+            { subcategory: "offer", label: "Em Oferta" },
+          ].map((item, index) => (
+            <button
+              onClick={() => showSubcategory(item.subcategory)}
+              key={index}
+            >
+              {item.label}
+            </button>
+          ))}
+
+          {productsList !== products && (
+            <p
+              className={styles.filter}
+              onClick={() => setProductsList(products)}
+            >
+              Limpar Filtro
+              <i>
+                <FaFilterCircleXmark size={40} />
+              </i>
+            </p>
+          )}
         </nav>
         <div className={styles.productsContainer}>
-          {[
-            {
-              img: sapato,
-              title: "SAPATO PRETO ESTILO RASTEIRA",
-              price: "R$100,00",
-            },
-            {
-              img: vestidos,
-              title: "VESTIDO ESTILO MODERNO",
-              price: "R$150,00",
-            },
-            { img: tenis, title: "TÊNIS ESTILO CASUAL", price: "R$200,00" },
-            { img: vestido2, title: "VESTIDO DE FESTA", price: "R$250,00" },
-            { img: bolsa2, title: "BOLSA MODERNA", price: "R$300,00" },
-            { img: bolsa, title: "BOLSA CLÁSSICA", price: "R$180,00" },
-          ].map((product, index) => (
+          {productsList.map((product, index) => (
             <div className={styles.product} key={index}>
               <i className={styles.productLike}>
                 <FaHeart size={30} color="red" />
               </i>
               <img
-                src={product.img}
-                alt={product.title}
+                src={product.image}
+                alt={product.name}
                 className={styles.productImage}
               />
+              {product.new === true && (
+                <span className={styles.newProduct}>NOVO</span>
+              )}
               <div className={styles.productInfo}>
-                <p className={styles.productTitle}>{product.title}</p>
+                <p className={styles.productTitle}>{product.name}</p>
                 <p className={styles.productPrice}>
-                  <strong>{product.price}</strong>
+                  {product.offer === true ? (
+                    <>
+                      <del>R$ {product.price},00</del>{" "}
+                      <strong>R$ {product.offerPrice},00</strong>
+                    </>
+                  ) : (
+                    "R$ " + product.price + ",00"
+                  )}
                   <button className={styles.productCart}>
                     ADICIONAR <FaCartPlus size={20} color="#fff" />
                   </button>
