@@ -16,20 +16,18 @@ import bolsa from "../../assets/images/bolsa.png";
 import vestidos from "../../assets/images/vestido.png";
 import tenis from "../../assets/images/tenis.png";
 
-import profissional1 from "../../assets/images/profissional1.jpg";
-import profissional2 from "../../assets/images/profissional2.jpg";
-import profissional3 from "../../assets/images/profissional3.jpg";
-import profissional4 from "../../assets/images/profissional4.jpg";
-import profissional5 from "../../assets/images/profissional5.jpg";
 import vestido3 from "../../assets/images/vestido3.png";
 
 import styles from "./styles.module.css";
 import { products } from "../../data/products";
+import { useItemContext } from "../../hooks/useItemContext";
+import { Product } from "../../contexts/itemsContext";
+import { professionals } from "../../data/professionals";
 
 export function Mail() {
-  const [productsList, setProductsList] = React.useState(products);
+  const { setItems } = useItemContext();
 
-  const buttonRef = React.useRef<HTMLButtonElement>(null);
+  const [productsList, setProductsList] = React.useState(products);
 
   const showOnlyOneProduct = (product: string) => {
     switch (product) {
@@ -62,6 +60,7 @@ export function Mail() {
     switch (subcategory) {
       case "new":
         setProductsList(productsList.filter((item) => item.new === true));
+
         break;
 
       case "offer":
@@ -80,23 +79,30 @@ export function Mail() {
     }
   };
 
-  console.log(buttonRef.current?.innerText);
+  const addProductToCart = (product: string, price: number, image: string) => {
+    const fullproduct: Product = { name: product, price: price, image: image };
+    setItems((prevItems) => {
+      const updatedItems = [...prevItems, fullproduct];
+      localStorage.setItem("items", JSON.stringify(updatedItems));
+      return updatedItems;
+    });
+  };
 
   return (
     <div className={styles.container}>
       <header className={styles.header}>
         <h3>Style Haven</h3>
         <nav>
-          <a href="#" className={styles.link}>
+          <a href="#home" className={styles.link}>
             Inicio
           </a>
-          <a href="#" className={styles.link}>
+          <a href="#products" className={styles.link}>
             Produtos
           </a>
-          <a href="#" className={styles.link}>
-            Avaliações
+          <a href="#professional" className={styles.link}>
+            Profissionais
           </a>
-          <a href="#" className={styles.link}>
+          <a href="#contacts" className={styles.link}>
             Contato
           </a>
         </nav>
@@ -107,7 +113,7 @@ export function Mail() {
         </a>
       </header>
 
-      <div className={styles.main}>
+      <div className={styles.main} id="home">
         <div className={styles.content}>
           <h2>Descubra Seu Estilo Perfeito</h2>
           <h1>Compre A Ultima Novidade Agora</h1>
@@ -142,22 +148,13 @@ export function Mail() {
         </div>
       </div>
 
-      <div className={styles.products}>
+      <div className={styles.products} id="products">
         <span className={styles.title}>NOSSAS MELHORES COLEÇÕES</span>
         <nav className={styles.navProducts}>
-          {[
-            { subcategory: "all", label: "Todos" },
-            { subcategory: "new", label: "Novos" },
-            { subcategory: "popular", label: "Populares" },
-            { subcategory: "offer", label: "Em Oferta" },
-          ].map((item, index) => (
-            <button
-              onClick={() => showSubcategory(item.subcategory)}
-              key={index}
-            >
-              {item.label}
-            </button>
-          ))}
+          <button onClick={() => showSubcategory("all")}>Todos</button>
+          <button onClick={() => showSubcategory("new")}>Novos</button>
+          <button onClick={() => showSubcategory("popular")}>Populares</button>
+          <button onClick={() => showSubcategory("offer")}>Em Oferta</button>
 
           {productsList !== products && (
             <p
@@ -196,7 +193,24 @@ export function Mail() {
                   ) : (
                     "R$ " + product.price + ",00"
                   )}
-                  <button className={styles.productCart}>
+                  <button
+                    className={styles.productCart}
+                    onClick={
+                      product.offer
+                        ? () =>
+                            addProductToCart(
+                              product.name,
+                              product.offerPrice,
+                              product.image
+                            )
+                        : () =>
+                            addProductToCart(
+                              product.name,
+                              product.price,
+                              product.image
+                            )
+                    }
+                  >
                     ADICIONAR <FaCartPlus size={20} color="#fff" />
                   </button>
                 </p>
@@ -206,33 +220,30 @@ export function Mail() {
         </div>
       </div>
 
-      <div className={styles.team}>
+      <div className={styles.team} id="professional">
         <span className={styles.title}>Nossos Colaboradores</span>
         <p className={styles.description}>
-          Lorem, ipsum dolor sit amet consectetur adipisicing elit. Adipisci
-          necessitatibus nobis, laudantium!
+          Nossos funcionários são treinados para entender as necessidades
+          individuais, proporcionando atendimento personalizado e consultoria de
+          estilo. Com atenção aos detalhes, simpatia e profissionalismo,
+          garantimos um ambiente acolhedor e eficiente, onde cada cliente se
+          sente valorizado.
         </p>
         <div className={styles.teamImages}>
-          {[
-            profissional1,
-            profissional2,
-            profissional3,
-            profissional4,
-            profissional5,
-          ].map((img, index) => (
-            <div className={styles.teamImage} key={index}>
-              <img src={img} alt="Colaborador" />
+          {professionals.map((person) => (
+            <div className={styles.teamImage} key={person.id}>
+              <img src={person.img} alt="Colaborador" />
               <div className={styles.teamInfo}>
-                <p className={styles.name}>Nome do Colaborador</p>
-                <p className={styles.role}>Cargo</p>
-                <p className={styles.description}>Descrição</p>
+                <p className={styles.name}>{person.name}</p>
+                <p className={styles.role}>{person.role}</p>
+                <p className={styles.description}>{person.description}</p>
               </div>
             </div>
           ))}
         </div>
       </div>
 
-      <div className={styles.newsletter}>
+      <div className={styles.newsletter} id="contacts">
         <div className={styles.newsletterImage}>
           <img src={vestido3} alt="Outro Vestido" />
         </div>

@@ -191,6 +191,11 @@
   cursor: pointer;
 }
 
+.active {
+  background-color: var(--color-secondary);
+  color: var(--color-primary);
+}
+
 .filter {
   position: absolute;
   top: 50%;
@@ -319,12 +324,12 @@
 }
 
 .team .description {
-  font-size: 1.5rem;
+  font-size: 1rem;
   font-family: var(--font-secondary);
   font-weight: 400;
   text-align: center;
   margin-bottom: 50px;
-  width: 40%;
+  width: 90%;
 }
 .team .teamImages {
   display: flex;
@@ -372,7 +377,7 @@
   top: -120px;
   background-color: var(--color-tertiary);
   width: 80%;
-  height: 150px;
+  height: auto;
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -381,7 +386,7 @@
   animation: fade 0.5s;
   text-align: center;
   z-index: -1;
-}
+margin-bottom: 50px;}
 
 .team .teamImages .teamImage:hover .teamInfo .name {
   font-family: var(--font-secondary);
@@ -399,6 +404,8 @@
   font-family: var(--font-secondary);
   font-size: 1rem;
   font-weight: 300;
+  width: 90%;
+  margin-bottom: 50px;
 }
 
 .team .teamImages .teamImage:hover .team-info .contact {

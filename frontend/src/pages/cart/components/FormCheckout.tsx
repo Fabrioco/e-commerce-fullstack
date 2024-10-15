@@ -2,6 +2,7 @@ import { CardElement, useStripe, useElements } from "@stripe/react-stripe-js";
 import axios from "axios";
 import React from "react";
 import { useItemContext } from "../../../hooks/useItemContext";
+import styles from "../styles.module.css";
 
 const cardStyle = {
   style: {
@@ -53,7 +54,6 @@ export const FormCheckout = () => {
 
     if (!error) {
       const { id } = paymentMethod;
-      console.log(id);
 
       try {
         const { data } = await axios.post(
@@ -79,7 +79,9 @@ export const FormCheckout = () => {
             result.paymentIntent &&
             result.paymentIntent.status === "succeeded"
           ) {
-            setPaymentSuccess("Pagamento concluído");
+            setPaymentSuccess(
+              `Pagamento concluído. Salve o Código do seu pedido. ${id}`
+            );
           }
         }
       } catch (error) {
@@ -93,7 +95,13 @@ export const FormCheckout = () => {
   return (
     <form onSubmit={handleSubmit}>
       <CardElement options={cardStyle} />
-      <button type="submit">Pagar</button>
+      <button
+        type="submit"
+        className={styles.buttonConfirm}
+        style={{ marginTop: "10px" }}
+      >
+        Pagar
+      </button>
       {paymentError && <p>{paymentError}</p>}
       {paymentSuccess && <p>{paymentSuccess}</p>}
     </form>

@@ -2,6 +2,7 @@
   margin: 0;
   padding: 0;
   box-sizing: border-box;
+  scroll-behavior: smooth;
 }
 
 body {
@@ -9,7 +10,7 @@ body {
   height: 100vh;
   background-color: var(--color-primary);
   font-size: 1.2rem;
-  overflow-x: hidden; 
+  overflow-x: hidden;
 }
 
 body::-webkit-scrollbar {
