@@ -27,7 +27,7 @@ export const FormCheckout = () => {
   const stripe = useStripe();
   const elements = useElements();
 
-  const { value, name } = useItemContext();
+  const { value, name, setItems } = useItemContext();
 
   const [paymentError, setPaymentError] = React.useState<string | undefined>(
     ""
@@ -82,6 +82,8 @@ export const FormCheckout = () => {
             setPaymentSuccess(
               `Pagamento concluído. Salve o Código do seu pedido. ${id}`
             );
+            setItems([]);
+            window.location.href = "/";
           }
         }
       } catch (error) {

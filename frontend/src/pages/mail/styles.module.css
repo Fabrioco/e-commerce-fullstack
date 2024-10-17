@@ -36,6 +36,21 @@
   font-size: 1.3rem;
 }
 
+.link {
+  position: relative;
+}
+
+.link .qntItem {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  font-family: var(--font-secondary);
+  color: var(--color-secondary);
+  font-weight: 600;
+  font-size: 2rem;
+}
+
 .main {
   width: 100%;
   height: auto;
@@ -386,7 +401,8 @@
   animation: fade 0.5s;
   text-align: center;
   z-index: -1;
-margin-bottom: 50px;}
+  margin-bottom: 50px;
+}
 
 .team .teamImages .teamImage:hover .teamInfo .name {
   font-family: var(--font-secondary);

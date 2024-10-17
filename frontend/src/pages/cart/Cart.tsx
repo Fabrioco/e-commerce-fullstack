@@ -7,7 +7,7 @@ import { useItemContext } from "../../hooks/useItemContext";
 export function Cart() {
   const { items, setValue, value } = useItemContext();
   const [step, setStep] = React.useState(0);
-  const [shipping] = React.useState(10)
+  const [shipping] = React.useState(10);
 
   React.useEffect(() => {
     const calculateValue = () => {
@@ -40,8 +40,8 @@ export function Cart() {
 
         <div className={styles.products}>
           <div className={styles.productsContainer}>
-            {items.map((item) => (
-              <div key={item.name} className={styles.product}>
+            {items.map((item, index) => (
+              <div key={index} className={styles.product}>
                 <img
                   src={item.image}
                   alt={item.name}

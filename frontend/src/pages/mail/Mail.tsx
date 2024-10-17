@@ -25,7 +25,7 @@ import { Product } from "../../contexts/itemsContext";
 import { professionals } from "../../data/professionals";
 
 export function Mail() {
-  const { setItems } = useItemContext();
+  const { setItems, qntItem } = useItemContext();
 
   const [productsList, setProductsList] = React.useState(products);
 
@@ -79,8 +79,18 @@ export function Mail() {
     }
   };
 
-  const addProductToCart = (product: string, price: number, image: string) => {
-    const fullproduct: Product = { name: product, price: price, image: image };
+  const addProductToCart = (
+    uid: number,
+    product: string,
+    price: number,
+    image: string
+  ) => {
+    const fullproduct: Product = {
+      id: uid,
+      name: product,
+      price: price,
+      image: image,
+    };
     setItems((prevItems) => {
       const updatedItems = [...prevItems, fullproduct];
       localStorage.setItem("items", JSON.stringify(updatedItems));
@@ -106,10 +116,11 @@ export function Mail() {
             Contato
           </a>
         </nav>
-        <a href="/carrinho">
+        <a href="/carrinho" className={styles.link}>
           <i>
-            <FaShoppingBag size={35} color="#fff" />
+            <FaShoppingBag size={55} color="#fff" />
           </i>
+          <span className={styles.qntItem}>{qntItem}</span>
         </a>
       </header>
 
@@ -199,12 +210,14 @@ export function Mail() {
                       product.offer
                         ? () =>
                             addProductToCart(
+                              product.id,
                               product.name,
                               product.offerPrice,
                               product.image
                             )
                         : () =>
                             addProductToCart(
+                              product.id,
                               product.name,
                               product.price,
                               product.image
