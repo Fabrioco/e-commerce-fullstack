@@ -61,6 +61,7 @@
   background-color: var(--color-secondary);
   color: var(--color-primary);
   margin: auto;
+  position: relative;
 }
 
 .content {
@@ -190,7 +191,7 @@
   margin: 50px auto;
 }
 
-.products .navProducts {
+.navProducts {
   display: flex;
   gap: 20px;
   margin-bottom: 50px;
@@ -206,7 +207,6 @@
   border-radius: 40px;
   cursor: pointer;
 }
-
 
 .filter {
   position: absolute;
@@ -387,7 +387,7 @@
 
 .team .teamImages .teamImage:hover .teamInfo {
   position: absolute;
-  top: -120px;
+  top: -180px;
   background-color: var(--color-tertiary);
   width: 80%;
   height: auto;
@@ -399,7 +399,6 @@
   animation: fade 0.5s;
   text-align: center;
   z-index: -1;
-  margin-bottom: 50px;
 }
 
 .team .teamImages .teamImage:hover .teamInfo .name {
@@ -439,7 +438,7 @@
   }
   to {
     opacity: 1;
-    top: -120px;
+    top: -180px;
   }
 }
 
@@ -613,4 +612,51 @@ footer .column button {
 .baseboard .social a:hover {
   cursor: pointer;
   transform: scale(1.1);
+}
+
+@media screen and (max-width: 1024px) {
+  .content {
+    z-index: 10;
+    width: 100%;
+    position: absolute;
+    text-align: center;
+  }
+
+  .image {
+    position: absolute;
+    bottom: 0;
+    left: 0;
+  }
+
+  .category .options {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    place-items: center;
+  }
+
+  .category .options .option {
+    width: 50%;
+  }
+
+  .navProducts {
+    justify-content: center;
+  }
+
+  .filter {
+    position: absolute;
+    bottom: -80px;
+  }
+  
+  .team .teamImages {
+    display: grid;
+    grid-template-columns: repeat(2,1fr);
+  }
+
+  .newsletter .newsletterInput input {
+    font-size: 1.4rem;
+  }
+
+  footer .column .description {
+    text-align: left;
+  }
 }
