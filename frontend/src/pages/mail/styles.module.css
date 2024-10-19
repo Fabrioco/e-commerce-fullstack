@@ -20,7 +20,7 @@
 
 .header h3 {
   font-family: var(--font-primary);
-  font-size: 2rem;
+  font-size: 2.2rem;
   font-weight: 600;
   text-transform: uppercase;
 }
@@ -552,6 +552,7 @@ footer .column .title {
   font-size: 1.6rem;
   font-weight: 600;
   text-transform: uppercase;
+  height: auto;
 }
 
 footer .column .description {
@@ -646,10 +647,10 @@ footer .column button {
     position: absolute;
     bottom: -80px;
   }
-  
+
   .team .teamImages {
     display: grid;
-    grid-template-columns: repeat(2,1fr);
+    grid-template-columns: repeat(2, 1fr);
   }
 
   .newsletter .newsletterInput input {
@@ -658,5 +659,43 @@ footer .column button {
 
   footer .column .description {
     text-align: left;
+  }
+}
+
+@media screen and (max-width: 768px) {
+  .header {
+    flex-wrap: wrap;
+    padding: 10px;
+    height: auto;
+  }
+
+  .image {
+    left: -50px;
+  }
+
+  .category .options .option {
+    width: 100%;
+  }
+
+  .newsletter .newsletterInfo {
+    width: auto;
+  }
+
+.newsletter .newsletterInput {
+  height: 80px;
+}
+
+  .newsletter .newsletterInput input {
+    font-size: 1.2rem;
+    width: 80%;
+  }
+
+  .newsletter .newsletterInput button {
+    width: auto;
+    font-size: 1.2rem;
+  }
+
+  footer .column {
+    width: 40%;
   }
 }
