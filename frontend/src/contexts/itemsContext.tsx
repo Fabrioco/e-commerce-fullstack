@@ -7,9 +7,6 @@ type ItemContextType = {
   value: number;
   setValue: React.Dispatch<React.SetStateAction<number>>;
 
-  name: string;
-  setName: React.Dispatch<React.SetStateAction<string>>;
-
   qntItem: number;
 };
 
@@ -34,28 +31,20 @@ export const ItemContext = React.createContext<ItemContextType | undefined>(
 );
 
 export const ItemProvider = ({ children }: ItemProviderProps) => {
-  const [items, setItems] = React.useState<Product[]>([]);
+  const [items, setItems] = React.useState<Product[]>(() => {
+    const storedItems = localStorage.getItem("items");
+    return storedItems ? JSON.parse(storedItems) : [];
+  });
   const [value, setValue] = React.useState(0);
-  const [name, setName] = React.useState("");
   const [qntItem, setQntItem] = React.useState<number>(0);
 
   React.useEffect(() => {
-    const loadCart = () => {
-      const cart = localStorage.getItem("items");
-      if (cart) {
-        const cartObj = JSON.parse(cart);
-        setItems(cartObj);
-      }
-      const quantidade = items.map((item) => item.name);
-      setQntItem(quantidade.length);
-    };
-    loadCart();
+    setQntItem(items.length);
+    localStorage.setItem("items", JSON.stringify(items));
   }, [items]);
 
   return (
-    <ItemContext.Provider
-      value={{ items, setItems, value, setValue, name, setName, qntItem }}
-    >
+    <ItemContext.Provider value={{ items, setItems, value, setValue, qntItem }}>
       {children}
     </ItemContext.Provider>
   );
