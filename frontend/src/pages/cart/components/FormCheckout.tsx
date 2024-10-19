@@ -3,31 +3,14 @@ import axios from "axios";
 import React from "react";
 import { useItemContext } from "../../../hooks/useItemContext";
 import styles from "../styles.module.css";
+import { cardStyle } from "./stylesFormCheckout";
 
-const cardStyle = {
-  style: {
-    base: {
-      color: "#32325d",
-      fontFamily: "Arial, sans-serif",
-      fontSmoothing: "antialiased",
-      fontSize: "16px",
-      "::placeholder": {
-        color: "#aab7c4",
-      },
-    },
-    invalid: {
-      color: "#fa755a",
-      iconColor: "#fa755a",
-    },
-  },
-  hidePostalCode: true,
-};
 
 export const FormCheckout = () => {
   const stripe = useStripe();
   const elements = useElements();
 
-  const { value, name, setItems } = useItemContext();
+  const { value, setItems } = useItemContext();
 
   const [paymentError, setPaymentError] = React.useState<string | undefined>(
     ""
@@ -67,7 +50,7 @@ export const FormCheckout = () => {
           payment_method: {
             card: cardElement,
             billing_details: {
-              name: name,
+              name: "Usuário",
             },
           },
         });
