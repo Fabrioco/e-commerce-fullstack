@@ -588,7 +588,7 @@ footer .column button {
 
 .baseboard {
   width: 100%;
-  height: 100px;
+  height: auto;
   bottom: 0;
   display: flex;
   gap: 20px;
@@ -669,8 +669,13 @@ footer .column button {
     height: auto;
   }
 
-  .image {
+  .main .image {
     left: -50px;
+    width: 100%;
+  }
+
+  .main .image img {
+    width: 100%;
   }
 
   .category .options .option {
@@ -681,9 +686,9 @@ footer .column button {
     width: auto;
   }
 
-.newsletter .newsletterInput {
-  height: 80px;
-}
+  .newsletter .newsletterInput {
+    height: 80px;
+  }
 
   .newsletter .newsletterInput input {
     font-size: 1.2rem;
@@ -697,5 +702,63 @@ footer .column button {
 
   footer .column {
     width: 40%;
+  }
+}
+
+@media screen and (max-width: 425px) {
+  .header {
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+  }
+
+  .header nav {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    text-align: center;
+  }
+
+  .main {
+    gap: 30px;
+    flex-direction: column;
+  }
+
+  .content h1 {
+    margin-bottom: 0;
+    font-size: 5rem;
+  }
+
+  .content .buttons {
+    flex-direction: column;
+    width: 100%;
+    align-items: center;
+  }
+
+  .main .image {
+    width: 100%;
+  }
+
+  .main .image img {
+    width: 100%;
+  }
+
+  .category .options {
+    grid-template-columns: repeat(1, 1fr);
+  }
+
+  .navProducts {
+    flex-direction: column;
+  }
+
+  .filter {
+    bottom: -205px;
+  }
+
+  .team .teamImages {
+    grid-template-columns: repeat(1, 1fr);
+  }
+
+  .newsletter {
+    flex-direction: column;
   }
 }
