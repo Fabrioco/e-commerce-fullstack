@@ -40,7 +40,7 @@ export const FormCheckout = () => {
 
       try {
         const { data } = await axios.post(
-          "http://localhost:4000/create-payment-intent",
+          "https://back-ecommerce-9d2cb7e426fb.herokuapp.com/create-payment-intent",
           {
             amount: value,
           }
