@@ -12,7 +12,7 @@
   justify-content: space-around;
   align-items: center;
   width: 100%;
-  height: 100px;
+  height: auto;
   background-color: var(--color-secondary);
   color: var(--color-primary);
   border-bottom: 2px solid var(--color-tertiary);
@@ -669,6 +669,16 @@ footer .column button {
     height: auto;
   }
 
+  .header nav {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    text-align: center;
+  }
+
+  .main h1 {
+    font-size: 4rem;
+  }
+
   .main .image {
     left: -50px;
     width: 100%;
@@ -678,8 +688,42 @@ footer .column button {
     width: 100%;
   }
 
+  .main .buttons {
+    flex-direction: column;
+    padding-bottom: 50px;
+  }
+
+  .main .buttons {
+    width: 100%;
+    align-items: center;
+  }
+
+  .main .buttons .target {
+    width: 90%;
+  }
+  .category .options {
+    display: grid;
+    grid-template-columns: repeat(1, 1fr);
+    place-items: center;
+  }
+
   .category .options .option {
     width: 100%;
+  }
+
+  .navProducts {
+    flex-direction: column;
+  }
+  .navProducts {
+    flex-direction: column;
+  }
+
+  .productInfo .productPrice {
+    flex-direction: column;
+  }
+
+  .team .teamImages {
+    grid-template-columns: repeat(1, 1fr);
   }
 
   .newsletter .newsletterInfo {
@@ -703,6 +747,24 @@ footer .column button {
   footer .column {
     width: 40%;
   }
+
+  .newsletter {
+    flex-direction: column;
+  }
+
+  footer .column .title {
+    font-size: 1.3rem;
+  }
+
+  footer .column:nth-child(5) {
+    width: 100%;
+    align-items: center;
+  }
+
+  .baseboard {
+    padding: 10px;
+    flex-direction: column-reverse;
+  }
 }
 
 @media screen and (max-width: 425px) {
@@ -721,11 +783,12 @@ footer .column button {
   .main {
     gap: 30px;
     flex-direction: column;
+    padding-bottom: 50px;
   }
 
   .content h1 {
     margin-bottom: 0;
-    font-size: 5rem;
+    font-size: 4rem;
   }
 
   .content .buttons {
@@ -734,16 +797,40 @@ footer .column button {
     align-items: center;
   }
 
+  .content .buttons .target {
+    width: 80%;
+  }
+
   .main .image {
     width: 100%;
   }
 
   .main .image img {
-    width: 100%;
+    width: 90%;
   }
 
   .category .options {
     grid-template-columns: repeat(1, 1fr);
+  }
+
+  .product {
+    width: 280px;
+    height: auto;
+    max-height: 400px;
+    padding-bottom: 10px;
+  }
+
+  .product img {
+    width: 80%;
+    height: 230px;
+  }
+
+  .products .title {
+    font-size: 2rem;
+  }
+
+  .productInfo .productPrice {
+    flex-direction: column;
   }
 
   .navProducts {
@@ -754,11 +841,11 @@ footer .column button {
     bottom: -205px;
   }
 
-  .team .teamImages {
-    grid-template-columns: repeat(1, 1fr);
+  .team .title {
+    font-size: 2rem;
   }
 
-  .newsletter {
-    flex-direction: column;
+  .team .teamImages {
+    grid-template-columns: repeat(1, 1fr);
   }
 }
