@@ -5,7 +5,6 @@ import { useItemContext } from "../../../hooks/useItemContext";
 import styles from "../styles.module.css";
 import { cardStyle } from "./stylesFormCheckout";
 
-
 export const FormCheckout = () => {
   const stripe = useStripe();
   const elements = useElements();
@@ -40,7 +39,7 @@ export const FormCheckout = () => {
 
       try {
         const { data } = await axios.post(
-          "https://back-ecommerce-9d2cb7e426fb.herokuapp.com/create-payment-intent",
+          "https://backend-commerce-9f7a1c0386d2.herokuapp.com/create-payment-intent",
           {
             amount: value,
           }
