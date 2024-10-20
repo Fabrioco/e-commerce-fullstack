@@ -18,7 +18,7 @@ app.post("/create-payment-intent", async (req, res) => {
 
   try {
     const paymentIntent = await stripe.paymentIntents.create({
-      amount: amount, 
+      amount: amount,
       currency: "brl",
     });
 
@@ -31,4 +31,5 @@ app.post("/create-payment-intent", async (req, res) => {
   }
 });
 
-app.listen(4000, () => console.log("Servidor rodando na porta 4000"));
+const PORT = process.env.PORT || 4000;
+app.listen(PORT, () => console.log(`Servidor rodando na porta ${PORT}`));
