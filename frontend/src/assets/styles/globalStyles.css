@@ -16,3 +16,95 @@ body {
 body::-webkit-scrollbar {
   display: none;
 }
+
+.notification {
+  width: 280px;
+  height: 100px;
+  background-color: var(--color-primary);
+  position: fixed;
+  top: 100px;
+  right: 50px;
+  z-index: 100;
+  animation: shaking linear 0.5s;
+  border-radius: 5px;
+  box-shadow: 0 0 10px 0 #000000a7;
+}
+
+.content__notification {
+  width: 100%;
+  min-height: 100%;
+  height: 5px;
+  position: relative;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.content__notification p {
+  text-transform: uppercase;
+  font-size: 1.3rem;
+  width: 100%;
+  height: auto;
+  text-align: center;
+}
+
+.content__notification .loadBar {
+  position: absolute;
+  bottom: 0;
+  width: 100%;
+}
+
+.loadBar .loadBarComplete {
+  width: 100%;
+  height: 5px;
+  background-color: #808080;
+  border-radius: 0 0 5px 5px;
+}
+
+.loadBarComplete .loadingBarSuccess {
+  width: 100%;
+  height: 100%;
+  background-color: #01b804;
+  animation: unloading linear 3s;
+  border-radius: 0 0 5px 5px;
+  box-shadow: 0 0 14px 0 #00ff04 inset, 0 0 14px 0 #00ff04;
+}
+
+.loadBarComplete .loadingBarError {
+  width: 100%;
+  height: 100%;
+  background-color: #de0000;
+  animation: unloading linear 3s;
+  border-radius: 0 0 5px 5px;
+  box-shadow: 0 0 14px 0 #ff0000 inset, 0 0 14px 0 #ff0000;
+}
+
+@keyframes unloading {
+  from {
+    width: 100%;
+  }
+  to {
+    width: 0%;
+  }
+}
+
+@keyframes shaking {
+  0% {
+    transform: translateX(-5px);
+  }
+  20% {
+    transform: translateX(5px);
+  }
+  40% {
+    transform: translateX(-5px);
+  }
+  60% {
+    transform: translateX(5px);
+  }
+  80% {
+    transform: translateX(-5px);
+  }
+  100% {
+    transform: translateX(0);
+  }
+}

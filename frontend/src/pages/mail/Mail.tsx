@@ -25,7 +25,7 @@ import { Product } from "../../contexts/itemsContext";
 import { professionals } from "../../data/professionals";
 
 export function Mail() {
-  const { setItems, qntItem } = useItemContext();
+  const { setItems, qntItem, showNotification } = useItemContext();
 
   const [productsList, setProductsList] = React.useState(products);
 
@@ -96,7 +96,10 @@ export function Mail() {
       localStorage.setItem("items", JSON.stringify(updatedItems));
       return updatedItems;
     });
+    showNotification('Item adicionado ao carrinho com sucesso','success')
   };
+
+
 
   return (
     <div className={styles.container}>

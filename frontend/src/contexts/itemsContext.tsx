@@ -1,4 +1,5 @@
 import React from "react";
+import { Notification } from "../components/notification";
 
 type ItemContextType = {
   items: Product[];
@@ -8,6 +9,8 @@ type ItemContextType = {
   setValue: React.Dispatch<React.SetStateAction<number>>;
 
   qntItem: number;
+
+  showNotification: (message: string, type: string) => void;
 };
 
 type ItemProviderProps = {
@@ -37,14 +40,36 @@ export const ItemProvider = ({ children }: ItemProviderProps) => {
   });
   const [value, setValue] = React.useState(0);
   const [qntItem, setQntItem] = React.useState<number>(0);
+  const [notification, setNotification] = React.useState({
+    message: "",
+    type: "",
+  });
 
   React.useEffect(() => {
     setQntItem(items.length);
     localStorage.setItem("items", JSON.stringify(items));
   }, [items]);
 
+  const showNotification = (message: string, type: string) => {
+    setNotification({
+      message: message,
+      type: type,
+    });
+    setTimeout(() => {
+      setNotification({
+        message: "",
+        type: "",
+      });
+    }, 3000);
+  };
+
   return (
-    <ItemContext.Provider value={{ items, setItems, value, setValue, qntItem }}>
+    <ItemContext.Provider
+      value={{ items, setItems, value, setValue, qntItem, showNotification }}
+    >
+      {notification.message && (
+        <Notification message={notification.message} type={notification.type} />
+      )}
       {children}
     </ItemContext.Provider>
   );

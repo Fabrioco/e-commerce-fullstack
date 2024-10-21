@@ -9,7 +9,7 @@ export const FormCheckout = () => {
   const stripe = useStripe();
   const elements = useElements();
 
-  const { value, setItems } = useItemContext();
+  const { value, setItems, showNotification } = useItemContext();
 
   const [paymentError, setPaymentError] = React.useState<string | undefined>(
     ""
@@ -64,8 +64,14 @@ export const FormCheckout = () => {
             setPaymentSuccess(
               `Pagamento concluído. Salve o Código do seu pedido. ${id}`
             );
+            showNotification(
+              "código do pedido copiado para area de transferência",
+              "success"
+            );
             setItems([]);
-            window.location.href = "/";
+            setTimeout(() => {
+              window.location.href = "/";
+            }, 5000);
           }
         }
       } catch (error) {
@@ -73,6 +79,7 @@ export const FormCheckout = () => {
       }
     } else {
       setPaymentError(error.message);
+      showNotification("algo deu errado, verifique o erro", "error");
     }
   };
 
